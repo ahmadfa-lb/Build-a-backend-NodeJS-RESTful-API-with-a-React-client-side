@@ -1,9 +1,10 @@
 {
   "name": "build-a-backend-nodejs-restful-api-with-a-react-client-side",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx nodemon --exec babel-node src/server.js",
+    "test": "ava"
   },
   "keywords": [
     "Express",
@@ -13,12 +14,15 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "ava": "^6.2.0",
     "body-parser": "^1.20.3",
+    "build-a-backend-nodejs-restful-api-with-a-react-client-side": "file:",
     "express": "^4.21.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
+    "@babel/node": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "ava": "^6.2.0",
     "nodemon": "^3.1.7"
   }
 }

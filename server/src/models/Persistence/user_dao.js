@@ -2,25 +2,41 @@ import users from '../data/users_data';
 
 const get = (userId) => {
     const findUser = users.find((user) => {
-        if (users.id === userId) {
+        if (user.id === userId) {
             return user;
         }
         return null;
     });
 
-    return findUser;
+    return findUser || null;
 };
 
 const getAll = () => {
     return users;
 } 
 
-const update = (newDetails) => {
+const update = (userId, newDetails) => {
+    let existingUser = null;
+    let userIndex;
     users.map((user, index) => {
-        if (user.id === newDetails.id) {
-            
+        if (user.id === userId) {
+            existingUser = user;
+            userIndex = index;
         }
     });
+
+    if (!existingUser) {
+        return false;
+    }
+
+    let updatedUser = {
+        ...existingUser,
+        ...newDetails
+    }
+
+    users.splice(userIndex ,1 , updatedUser);
+
+    return updatedUser;
 };
 
 

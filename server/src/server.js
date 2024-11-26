@@ -1,7 +1,8 @@
 import express from "express";
 // import bodyParser from "body-parser";
 
-import appRoutes from './routes.js'
+import mainRoutes from './main_routes.js'
+import userRoutes from './user_routes.js'
 
 const app = express();
 // const port = process.env.PORT;
@@ -11,7 +12,8 @@ const port = 3000;
 app.use(express.json());
 // app.use(bodyParser.json());  // same as above ⇱
 
-app.use('/v1', appRoutes)
+app.use('/v1', mainRoutes);
+app.use('/v1/user', userRoutes);
 
 
 app.listen(port, () =>{

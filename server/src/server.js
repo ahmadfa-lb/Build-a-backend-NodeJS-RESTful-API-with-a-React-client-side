@@ -1,6 +1,6 @@
 import express from "express";
 // import bodyParser from "body-parser";
-// import { StatusCodes } from 'http-status-codes'
+
 import appRoutes from './routes.js'
 
 const app = express();

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 // import bodyParser from "body-parser";
 import { StatusCodes } from 'http-status-codes';
 
@@ -78,9 +78,29 @@ router.put('/:id', (req, res) =>{
             message: `user ${id} is not found.`,
         });
     }
-
-
 });
+
+
+router.delete('/:id', (req, res) => {
+    const { params } = req;
+
+    const id = parseInt(params.id, 10);
+    const user = userService.getUser(id);
+    if (user)
+    {
+        const status = userService.removeUser(id);
+        return res.status(StatusCodes.OK).send( {
+            status: STATUS.success,
+            message: `user ${id} has been deleted.`,
+        });
+    } else {
+        return res.status(StatusCodes.NOT_FOUND).send({
+            status: STATUS.failure,
+            message: `user ${id} hasn't been found.`,
+        })
+    }
+
+})
 
 // module.exports = router; // normal js 
 export default router; // ES6

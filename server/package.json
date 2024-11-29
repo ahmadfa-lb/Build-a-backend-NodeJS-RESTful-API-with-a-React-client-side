@@ -17,7 +17,9 @@
     "body-parser": "^1.20.3",
     "build-a-backend-nodejs-restful-api-with-a-react-client-side": "file:",
     "express": "^4.21.1",
-    "http-status-codes": "^2.3.0"
+    "express-yup-middleware": "^1.2.4",
+    "http-status-codes": "^2.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

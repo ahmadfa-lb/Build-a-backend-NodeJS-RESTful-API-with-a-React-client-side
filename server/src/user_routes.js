@@ -1,9 +1,9 @@
 import express, { response } from "express";
-// import bodyParser from "body-parser";
 import { StatusCodes } from 'http-status-codes';
+import { expressYupMiddleware } from 'express-yup-middleware';
 
 import userService from './services/user_service';
-import { use } from "react";
+import { addUser } from './user_schemas';
 
 const router = express.Router();
 
@@ -48,7 +48,9 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.post('/', (req, res) =>{
+router.post('/', 
+    expressYupMiddleware({schemaValidator: addUser, expectedStatusCode: StatusCodes.BAD_REQUEST}),
+    (req, res) =>{
     const { body: user } = req;
 
     const addedUser = userService.addUser(user)

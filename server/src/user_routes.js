@@ -2,8 +2,9 @@ import express, { response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { expressYupMiddleware } from 'express-yup-middleware';
 
+import userControllers from "./controllers/user_controllers";
 import userService from './services/user_service';
-import { addUser } from './user_schemas';
+import { addUser, updateUser } from './user_schemas';
 
 const router = express.Router();
 
@@ -47,40 +48,16 @@ router.get('/:id', (req, res) => {
     
 });
 
-
 router.post('/', 
-    expressYupMiddleware({schemaValidator: addUser, expectedStatusCode: StatusCodes.BAD_REQUEST}),
-    (req, res) =>{
-    const { body: user } = req;
-
-    const addedUser = userService.addUser(user)
-
-    return res.status(StatusCodes.CREATED).send({
-        status : STATUS.success,
-        user: addedUser,
-    });
-});
+    expressYupMiddleware({schemaValidator: addUser}),
+    userControllers.addUser
+);
 
 
-router.put('/:id', (req, res) =>{
-    const { body: user } = req;
-
-    const id = parseInt(req.params.id, 10);
-
-    const updatedUser = userService.updateUser(id, user);
-
-    if (updatedUser) {
-        return res.status(StatusCodes.OK).send({
-            status : STATUS.success,
-            user: updatedUser,
-        });
-    } else {
-        return res.status(StatusCodes.NOT_ACCEPTABLE).send({
-            status : STATUS.failure,
-            message: `user ${id} is not found.`,
-        });
-    }
-});
+router.put('/:id',
+    expressYupMiddleware({schemaValidator: updateUser}),
+    userControllers.updateUser
+    );
 
 
 router.delete('/:id', (req, res) => {

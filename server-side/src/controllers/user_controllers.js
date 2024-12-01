@@ -1,21 +1,12 @@
-import express, { response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { expressYupMiddleware } from 'express-yup-middleware';
-
-import userControllers from "./controllers/user_controllers";
-import userService from './services/user_service';
-import { addUser, updateUser } from './user_schemas';
-
-const router = express.Router();
+import userService from '../services/user_service';
 
 const STATUS = {
     success : 'OK',
     failure : 'NO',
 }
 
-
-
-router.get('/all', (req, res) => {
+const getAllUsers = (req, res) => {
     const users = userService.getAllUsers();
 
     if (users.length) {
@@ -26,9 +17,9 @@ router.get('/all', (req, res) => {
         status : STATUS.failure,
         message: "no users found.",
     });
-});
+};
 
-router.get('/:id', (req, res) => {
+const getUser = (req, res) => {
 
     const id = parseInt(req.params.id, 10);
     const user = userService.getUser(id);
@@ -46,21 +37,40 @@ router.get('/:id', (req, res) => {
     });
 
     
-});
+};
 
-router.post('/', 
-    expressYupMiddleware({schemaValidator: addUser}),
-    userControllers.addUser
-);
+const addUser = (req, res) =>{
+    const { body: user } = req;
 
+    const addedUser = userService.addUser(user)
 
-router.put('/:id',
-    expressYupMiddleware({schemaValidator: updateUser}),
-    userControllers.updateUser
-    );
+    return res.status(StatusCodes.CREATED).send({
+        status : STATUS.success,
+        user: addedUser,
+    });
+};
 
+const updateUser =  (req, res) =>{
+    const { body: user } = req;
 
-router.delete('/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+
+    const updatedUser = userService.updateUser(id, user);
+
+    if (updatedUser) {
+        return res.status(StatusCodes.OK).send({
+            status : STATUS.success,
+            user: updatedUser,
+        });
+    } else {
+        return res.status(StatusCodes.NOT_ACCEPTABLE).send({
+            status : STATUS.failure,
+            message: `user ${id} is not found.`,
+        });
+    }
+};
+
+const removeUser = (req, res) => {
     const { params } = req;
 
     const id = parseInt(params.id, 10);
@@ -79,7 +89,12 @@ router.delete('/:id', (req, res) => {
         })
     }
 
-})
+};
 
-// module.exports = router; // normal js 
-export default router; // ES6
+export default {
+    getAllUsers,
+    getUser,
+    addUser,
+    updateUser,
+    removeUser
+}

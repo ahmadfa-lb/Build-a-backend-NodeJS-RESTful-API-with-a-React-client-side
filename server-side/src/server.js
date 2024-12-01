@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from "helmet"
 // import bodyParser from "body-parser";
 
 import mainRoutes from './main_routes.js'
@@ -11,6 +12,7 @@ const port = 3000;
 // Middleware to parse JSON bodies
 app.use(express.json());
 // app.use(bodyParser.json());  // same as above ⇱
+app.use(helmet());
 
 app.use('/v1', mainRoutes);
 app.use('/v1/user', userRoutes);

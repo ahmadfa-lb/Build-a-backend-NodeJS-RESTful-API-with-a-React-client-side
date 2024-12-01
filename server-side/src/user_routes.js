@@ -3,7 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 import { expressYupMiddleware } from 'express-yup-middleware';
 
 import userControllers from "./controllers/user_controllers";
-import userService from './services/user_service';
 import { addUser, getUser, updateUser, removeUser } from './user_schemas';
 
 const router = express.Router();

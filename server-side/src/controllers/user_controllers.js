@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+
 import userService from '../services/user_service';
 
 const STATUS = {

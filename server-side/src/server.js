@@ -1,6 +1,8 @@
 import express from "express";
 import helmet from "helmet"
+import { rateLimit } from 'express-rate-limit'
 // import bodyParser from "body-parser";
+import compression from "compression";
 
 import mainRoutes from './main_routes.js'
 import userRoutes from './user_routes.js'
@@ -9,6 +11,14 @@ const app = express();
 // const port = process.env.PORT;
 const port = 3000;
 
+const limiter = rateLimit({
+	windowMs: 60 * 1000, // 1 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+})
+
+
+app.use(compression());
+app.use(limiter);
 // Middleware to parse JSON bodies
 app.use(express.json());
 // app.use(bodyParser.json());  // same as above ⇱

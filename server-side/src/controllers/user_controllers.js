@@ -41,7 +41,7 @@ const getUser = (req, res) => {
   const user = userService.getUser(id);
 
   if (user) {
-    logger.info(`Retrieving the ${id} user!`);
+    logger.info(`Retrieving the user with the id: ${id}!`);
     return res.status(StatusCodes.OK).send({
       status: STATUS.success,
       user,
@@ -86,7 +86,7 @@ const updateUser = (req, res) => {
   const updatedUser = userService.updateUser(id, user);
 
   if (updatedUser) {
-    logger.info(`Updating the ${id} user!`);
+    logger.info(`Updating the user with the id: ${id} !`);
     return res.status(StatusCodes.OK).send({
       status: STATUS.success,
       user: updatedUser,
@@ -111,8 +111,8 @@ const removeUser = (req, res) => {
   const id = parseInt(params.id, 10);
   const user = userService.getUser(id);
   if (user) {
-    logger.info(`Removing the ${id} user!`);
-    const status = userService.removeUser(id);
+    userService.removeUser(id);
+    logger.info(`Removing the user with the id: ${id}!`);
     return res.status(StatusCodes.OK).send({
       status: STATUS.success,
       message: `user ${id} has been deleted.`,

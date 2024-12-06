@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 
 const CreateUser = () => {
     
+    function capitalizeFirstLetter(word) {
+        if (!word) return '';
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+
     const createUserEndpoint = "http://localhost:4000/v1/user/";
 
     const [name, setName] = useState("");
@@ -26,16 +33,29 @@ const CreateUser = () => {
         try {
             const res = await axios.post(`${createUserEndpoint}`, payLoad);
 
-            if (res.data?.status === 'OK') {
+            if (res.data?.status) {
+                toast.success(' User has been successfully created!');
+
+                //clearing the states 
                 setName('');
                 setEmail('');
                 setCity('');
                 setCountry('');
             } else {
-                res.data = {};
+                toast.warn('An error has occured');
             }
         } catch (err) {
-            console.log(err);
+            const getErrorMessage = () => {
+                const {
+                    data: {
+                        errors:{ body }, 
+                    }} = err.response;
+                
+                toast.error(capitalizeFirstLetter(body[0]?.message));
+            };
+            
+            return (getErrorMessage());
+            
         }
     };
 
@@ -84,6 +104,7 @@ const CreateUser = () => {
                     </Form>
                 </Col>
             </Row>
+            <ToastContainer />
         </Container>
     </>);
 };

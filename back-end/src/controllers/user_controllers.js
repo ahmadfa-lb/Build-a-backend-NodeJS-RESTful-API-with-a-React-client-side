@@ -6,8 +6,8 @@ const logger = pino();
 import userService from "../services/user_service";
 
 const STATUS = {
-  success: "OK",
-  failure: "NO",
+  success: "true",
+  failure: "false",
 };
 
 /**

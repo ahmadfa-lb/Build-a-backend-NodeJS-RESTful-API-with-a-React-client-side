@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
+import { Container, ToastContainer } from 'react-bootstrap'
 import UsersList from './components/UsersList'
 import CreateUser from './components/CreateUser'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,6 +17,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </Container>
+    <ToastContainer />
     </>
   )
 }

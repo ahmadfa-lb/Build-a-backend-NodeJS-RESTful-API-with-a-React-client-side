@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import ReadUsers from './components/ReadUsers'
+import { Container } from 'react-bootstrap'
 
-import './App.css'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   
 
   return (
     <>
-      
+    <Container>
+      <ReadUsers />
+    </Container>
     </>
   )
 }

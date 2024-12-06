@@ -17,6 +17,7 @@
     "body-parser": "^1.20.3",
     "build-a-backend-nodejs-restful-api-with-a-react-client-side": "file:",
     "compression": "^1.7.5",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
     "express-rate-limit": "^7.4.1",
     "express-yup-middleware": "^1.2.4",

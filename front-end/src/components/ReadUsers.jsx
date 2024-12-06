@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 
 
 const ReadUsers = () => {
     const getAllUsersUrl = 'http://localhost:4000/v1/user/all';
-    const [users, setUsers] = useState();
+    const [users, setUsers] = useState({});
 
     const fetchUsers = async () => {
         //const res = await fetch(`${getAllUsersUrl}`);
@@ -21,7 +21,7 @@ const ReadUsers = () => {
     }, []);
 
 
-    const renderedUsers = Object.values(users).map( user => {
+    const renderedUsers = users && Object.values(users).map( (user) => {
         return (
             <>
                 <Row className='Justify-content-center'>
@@ -40,12 +40,12 @@ const ReadUsers = () => {
     });
 
     return (
-        <Container>
+        <>
             <h3 className='text-center'>Users</h3>
             <Row className='d-flex flex-row flex-wrap justify-content-between'>
                 {renderedUsers}
             </Row>
-        </Container>
+        </>
     );
 }
 

@@ -3,13 +3,13 @@ import axios from "axios";
 import { Card, Row, Col, Container } from "react-bootstrap";
 
 const ReadUsers = () => {
-  const getAllUsersUrl = "http://localhost:4000/v1/user/all";
+  const getAllUsersEndpoint = "http://localhost:4000/v1/user/all";
   const [users, setUsers] = useState({});
 
   const fetchUsers = async () => {
     //const res = await fetch(`${getAllUsersUrl}`);
     //console.log(res.json());
-    const res = await axios.get(`${getAllUsersUrl}`);
+    const res = await axios.get(`${getAllUsersEndpoint}`);
 
     setUsers(res.data);
   };

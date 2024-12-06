@@ -1,4 +1,4 @@
-import ReadUsers from './components/ReadUsers'
+import UsersList from './components/UsersList'
 import { Container } from 'react-bootstrap'
 
 
@@ -9,8 +9,8 @@ function App() {
 
   return (
     <>
-    <Container>
-      <ReadUsers />
+    <Container fluid className='mt-4 mb-3'>
+      <UsersList />
     </Container>
     </>
   )
